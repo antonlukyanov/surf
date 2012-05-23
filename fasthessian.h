@@ -30,7 +30,7 @@ public:
         int init_sampling_interval,
         float threshold
     );
-    void getPoints();
+    void getInterestPoints();
 private:
     float threshold;
     int octaves;

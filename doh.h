@@ -6,6 +6,9 @@
 
 using namespace std;
 
+/**
+ * Детерминант гессиана (DoH: determinant of the Hessian).
+ */
 class DoH {
 public:
     int width, height;

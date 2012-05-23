@@ -28,7 +28,7 @@ void FastHessian::setParameters(
     this->threshold = threshold;
 }
 
-void FastHessian::getPoints() {
+void FastHessian::getInterestPoints() {
     map<int, int> usedfilters;
     vector<int> filtermap(octaves * intervals);
 
@@ -45,7 +45,6 @@ void FastHessian::getPoints() {
             int fsize = 3 * (pow(static_cast<double>(2), on) * in + 1);
             if ( !usedfilters.count(fsize) ) {
                 usedfilters[fsize] = index++;
-                // .
                 computeDoH(img->width / (step * on), img->height / (step * on), step * on, fsize);
             }
             // По сути матрица, где (i,j) элемент соответствует размеру
@@ -195,7 +194,7 @@ void FastHessian::findCoordinates(int row, int column, DoH *top, DoH *middle, Do
         };
 
         double X[3];
-        // X = (d^2H/dx^2)^-1 * dH/dx. Результирующий вектор значения сдвигов.
+        // X = (d^2H/dx^2)^-1 * dH/dx. Результирующий вектор со значениями сдвигов.
         for ( int i = 0; i < 3; i++ ) {
             double sum = 0;
             for ( int j = 0; j < 3; j++ ) {
