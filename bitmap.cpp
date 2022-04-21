@@ -17,7 +17,7 @@ Bitmap::Bitmap(string filename) {
 
     bytesPerPixel = bih->biBitCount / 8;
 
-    // Åñëè îòñóòñòâóåò ðàçìåð èçîáðàæåíèÿ â áàéòàõ, òî íàõîäèì åãî.
+    // Ð•ÑÐ»Ð¸ Ð¾Ñ‚ÑÑƒÑ‚ÑÑ‚Ð²ÑƒÐµÑ‚ Ñ€Ð°Ð·Ð¼ÐµÑ€ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ Ð² Ð±Ð°Ð¹Ñ‚Ð°Ñ…, Ñ‚Ð¾ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ð¼ ÐµÐ³Ð¾.
     if ( !bih->biSizeImage ) {
         if ( bih->biBitCount >= 8 ) {
            bih->biSizeImage = widthbytes(bih->biWidth * bih->biBitCount) * bih->biHeight;
@@ -100,7 +100,7 @@ void Bitmap::pixelToGrayscale(RGBTriple &p) {
 }
 
 bool Bitmap::getPos(dword i, dword j, dword &pos) {
-    // Èçîáðàæåíèå çàïèñàíî ñíèçó-ââåðõ.
+    // Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ð¾ ÑÐ½Ð¸Ð·Ñƒ-Ð²Ð²ÐµÑ€Ñ….
     if ( bih->biHeight > 0 ) {
         i = bih->biHeight - 1 - i;
     }
@@ -116,7 +116,7 @@ bool Bitmap::getPos(dword i, dword j, dword &pos) {
 bool Bitmap::getPos(dword i, dword &pos) {
     int padding = (i / bih->biWidth) * (bih->biWidth % 4);
 
-    // Åñëè èçîáðàæåíèå çàïèñàíî ñíèçó-ââåðõ.
+    // Ð•ÑÐ»Ð¸ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð·Ð°Ð¿Ð¸ÑÐ°Ð½Ð¾ ÑÐ½Ð¸Ð·Ñƒ-Ð²Ð²ÐµÑ€Ñ….
     if ( bih->biHeight > 0 ) {
         pos = bih->biSizeImage - 1 - i * bytesPerPixel - padding;
     }

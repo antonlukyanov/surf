@@ -7,7 +7,7 @@
 using namespace std;
 
 /**
- * Детерминант гессиана (DoH: determinant of the Hessian).
+ * Р”РµС‚РµСЂРјРёРЅР°РЅС‚ РіРµСЃСЃРёР°РЅР° (DoH: determinant of the Hessian).
  */
 class DoH {
 public:

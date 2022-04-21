@@ -6,7 +6,7 @@ Descriptor::Descriptor(IntegralImage *img, IPVect &ipts) : ipts(ipts) {
 }
 
 void Descriptor::build() {
-    // Находим ориентацию особых точек.
+    // РќР°С…РѕРґРёРј РѕСЂРёРµРЅС‚Р°С†РёСЋ РѕСЃРѕР±С‹С… С‚РѕС‡РµРє.
     for ( int i = 0; i < ipts.size(); i++ ) {
         findOrientation(i);
         buildDescriptor(i);
@@ -34,23 +34,23 @@ void Descriptor::findOrientation(int pointIdx) {
         }
     }
 
-    // Координаты суммарного вектора.
+    // РљРѕРѕСЂРґРёРЅР°С‚С‹ СЃСѓРјРјР°СЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР°.
     float X;
     float Y;
-    // Максимальная длина суммарного вектора.
+    // РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° СЃСѓРјРјР°СЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР°.
     float maxlen = 0;
-    // Угол (ориентация) максимального суммарного вектора.
+    // РЈРіРѕР» (РѕСЂРёРµРЅС‚Р°С†РёСЏ) РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ СЃСѓРјРјР°СЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР°.
     float orientation = 0;
-    // 0.15 ( = 1/2*pi) здесь примерно 1 градус в радианах.
+    // 0.15 ( = 1/2*pi) Р·РґРµСЃСЊ РїСЂРёРјРµСЂРЅРѕ 1 РіСЂР°РґСѓСЃ РІ СЂР°РґРёР°РЅР°С….
     for ( float ang1 = 0; ang1 < 2*PI; ang1 += 0.15 ) {
-        // Если ang1 + pi/3 > 2pi, то ang2 = pi/3 - alpha, где alpha = 2pi - ang1.
+        // Р•СЃР»Рё ang1 + pi/3 > 2pi, С‚Рѕ ang2 = pi/3 - alpha, РіРґРµ alpha = 2pi - ang1.
         float ang2 = ang1 + PI/3.0 > 2*PI ? ang1 - 5.0*PI/3.0 : ang1 + PI/3.0;
         X = 0;
         Y = 0;
         for ( int i = 0; i < 109; i++ ) {
             float ang = getAngle(haarResX[i], haarResY[i]);
             if ( ang1 < ang2 && ang1 < ang && ang < ang2
-                 // Через окно проходит y = 0.
+                 // Р§РµСЂРµР· РѕРєРЅРѕ РїСЂРѕС…РѕРґРёС‚ y = 0.
                  || ang1 > ang2 && (ang < ang2 || (ang1 < ang && ang < 2*PI))) {
                 X += haarResX[i];  
                 Y += haarResY[i];
@@ -58,7 +58,7 @@ void Descriptor::findOrientation(int pointIdx) {
         }
 
         float len = X*X + Y*Y;
-        // За ориентацию особой точки принимаем угол суммарного вектора с максимальной длиной.
+        // Р—Р° РѕСЂРёРµРЅС‚Р°С†РёСЋ РѕСЃРѕР±РѕР№ С‚РѕС‡РєРё РїСЂРёРЅРёРјР°РµРј СѓРіРѕР» СЃСѓРјРјР°СЂРЅРѕРіРѕ РІРµРєС‚РѕСЂР° СЃ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅРѕР№.
         if (len > maxlen) {
             maxlen = len;
             orientation = getAngle(X, Y);
